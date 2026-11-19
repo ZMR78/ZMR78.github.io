@@ -2,14 +2,9 @@
   --bg-main: #FAFAFA;
   --bg-card: #FFFFFF;
   --bg-cloud: #EEF4F8;
-  --bg-navbar: rgba(255, 255, 255, 0.85);
+  --bg-navbar: rgba(255, 255, 255, 0.88);
   --bg-floating: rgba(255, 255, 255, 0.94);
-  --bg-features: rgba(238, 244, 248, 0.65);
-  --bg-footer: rgba(255, 255, 255, 0.82);
-  --hero-gradient: linear-gradient(135deg, rgba(237, 244, 250, 0.74) 0%, rgba(249, 250, 251, 0.52) 55%, rgba(227, 238, 247, 0.74) 100%);
-  --dot-color: rgba(92, 146, 193, 0.16);
-  --cursor-glow-color: rgba(92, 146, 193, 0.16);
-  --cloud-svg-fill: rgba(92, 146, 193, 0.08);
+  --hero-gradient: linear-gradient(135deg, #EDF4FA 0%, #F9FAFB 55%, #E3EEF7 100%);
   --announcement-bg: #181A1F;
   --announcement-text: #FFFFFF;
   --primary: #181A1F;
@@ -34,14 +29,9 @@
   --bg-main: #0F131A;
   --bg-card: #171D27;
   --bg-cloud: #1E2736;
-  --bg-navbar: rgba(15, 19, 26, 0.85);
+  --bg-navbar: rgba(15, 19, 26, 0.88);
   --bg-floating: rgba(23, 29, 39, 0.94);
-  --bg-features: rgba(30, 39, 54, 0.62);
-  --bg-footer: rgba(23, 29, 39, 0.82);
-  --hero-gradient: linear-gradient(135deg, rgba(19, 27, 38, 0.76) 0%, rgba(15, 19, 26, 0.5) 55%, rgba(24, 35, 51, 0.76) 100%);
-  --dot-color: rgba(116, 169, 216, 0.14);
-  --cursor-glow-color: rgba(116, 169, 216, 0.18);
-  --cloud-svg-fill: rgba(116, 169, 216, 0.07);
+  --hero-gradient: linear-gradient(135deg, #131B26 0%, #0F131A 55%, #182333 100%);
   --announcement-bg: #090C10;
   --announcement-text: #E2E8F0;
   --primary: #F1F5F9;
@@ -75,165 +65,7 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color 0.35s ease, color 0.35s ease;
-}
-
-/* ===================================================
-   طبقة تأثيرات الخلفية التفاعلية لكامل الصفحة
-   =================================================== */
-.page-bg-layer {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* شبكة نقاط هندسية ناعمة */
-.bg-dot-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--dot-color) 1.3px, transparent 1.3px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 35%, transparent 95%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 35%, transparent 95%);
-}
-
-/* هالة ضوئية تتبع الماوس */
-.cursor-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 640px;
-  height: 640px;
-  margin-top: -320px;
-  margin-left: -320px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--cursor-glow-color) 0%, rgba(201, 162, 63, 0.06) 38%, transparent 70%);
-  will-change: transform;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.cursor-glow.active {
-  opacity: 1;
-}
-
-/* كتل سحابية متموجة في الخلفية */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(75px);
-  opacity: 0.65;
-  will-change: transform;
-  animation: orbFloatMorph 20s ease-in-out infinite alternate;
-}
-
-.orb-1 {
-  width: 480px;
-  height: 480px;
-  top: -10%;
-  right: -8%;
-  background: radial-gradient(circle, rgba(92, 146, 193, 0.24), transparent 70%);
-}
-
-.orb-2 {
-  width: 420px;
-  height: 420px;
-  top: 42%;
-  left: -10%;
-  background: radial-gradient(circle, rgba(142, 192, 236, 0.2), transparent 70%);
-  animation-delay: -6s;
-  animation-duration: 24s;
-}
-
-.orb-3 {
-  width: 360px;
-  height: 360px;
-  bottom: -8%;
-  right: 18%;
-  background: radial-gradient(circle, rgba(201, 162, 63, 0.14), transparent 70%);
-  animation-delay: -11s;
-  animation-duration: 22s;
-}
-
-.orb-4 {
-  width: 340px;
-  height: 340px;
-  top: 22%;
-  left: 38%;
-  background: radial-gradient(circle, rgba(92, 146, 193, 0.14), transparent 70%);
-  animation-delay: -15s;
-  animation-duration: 26s;
-}
-
-@keyframes orbFloatMorph {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(35px, -40px, 0) scale(1.12) rotate(18deg);
-  }
-  100% {
-    transform: translate3d(-25px, 30px, 0) scale(0.94) rotate(-14deg);
-  }
-}
-
-/* كانفاس الجزيئات السحابية والذهبية */
-#bg-particles-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* غيوم SVG شفافة عابرة بهدوء */
-.bg-cloud-svg {
-  position: absolute;
-  fill: var(--cloud-svg-fill);
-  will-change: transform;
-  animation: cloudDriftAcross 55s linear infinite;
-}
-
-.bg-cloud-svg.c1 {
-  width: 240px;
-  top: 18%;
-  left: -260px;
-  animation-duration: 58s;
-}
-
-.bg-cloud-svg.c2 {
-  width: 310px;
-  top: 56%;
-  left: -340px;
-  animation-duration: 72s;
-  animation-delay: -24s;
-}
-
-.bg-cloud-svg.c3 {
-  width: 190px;
-  top: 82%;
-  left: -220px;
-  animation-duration: 48s;
-  animation-delay: -12s;
-}
-
-@keyframes cloudDriftAcross {
-  0% {
-    transform: translateX(0) translateY(0);
-  }
-  50% {
-    transform: translateX(calc(50vw + 180px)) translateY(-14px);
-  }
-  100% {
-    transform: translateX(calc(100vw + 380px)) translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bg-orb, .bg-cloud-svg, .cloud-shape, .floating-particles span {
-    animation: none !important;
-  }
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -516,6 +348,7 @@ body {
   background: radial-gradient(circle, rgba(92, 146, 193, 0.18) 0%, transparent 70%);
   pointer-events: none;
   animation: floatSlow 7s ease-in-out infinite;
+  transition: transform 0.25s ease-out;
 }
 
 .cloud-1 {
@@ -546,7 +379,7 @@ body {
 .floating-particles span {
   position: absolute;
   color: var(--accent);
-  opacity: 0.25;
+  opacity: 0.22;
   font-size: 1.4rem;
   pointer-events: none;
   animation: driftParticle 12s ease-in-out infinite;
@@ -786,8 +619,7 @@ body {
 
 /* شريط الأخبار المتحرك (Marquee) */
 .marquee-strip {
-  background: var(--bg-navbar);
-  backdrop-filter: blur(10px);
+  background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
   padding: 12px 0;
   overflow: hidden;
@@ -1232,10 +1064,7 @@ body {
 
 /* شريط المميزات */
 .features-bar {
-  background: var(--bg-features);
-  backdrop-filter: blur(8px);
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-cloud);
   padding: 55px 0;
 }
 
@@ -1279,8 +1108,8 @@ body {
 
 /* التذييل */
 .footer {
-  background: var(--bg-footer);
-  backdrop-filter: blur(10px);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
   padding-top: 45px;
 }
 

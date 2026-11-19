@@ -184,10 +184,10 @@ let searchQuery = "";
 let onlyWishlist = false;
 let qvSelectedSize = "M";
 
+// رقم الواتساب الخاص بـ Ghima_store
 const STORE_WHATSAPP = "201024811183";
 const FREE_SHIPPING_THRESHOLD = 1200;
 
-const navbarEl = document.getElementById("navbar");
 const productsGrid = document.getElementById("products-grid");
 const visibleCountEl = document.getElementById("visible-count");
 const filterTabs = document.getElementById("filter-tabs");
@@ -233,11 +233,12 @@ applyTheme(savedTheme);
 if (themeToggleBtn) {
   themeToggleBtn.addEventListener("click", () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
-    applyTheme(currentTheme === "dark" ? "light" : "dark");
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    applyTheme(nextTheme);
   });
 }
 
-// 1. عرض المنتجات
+// 1. عرض المنتجات حسب الفلترة والترتيب والبحث مع حركة ظهور متتابعة
 function renderProducts() {
   let list = [...products];
 
@@ -263,14 +264,13 @@ function renderProducts() {
 
   if (list.length === 0) {
     productsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">لا توجد قطع مطابقة لبحثك حالياً.</p>`;
-    updateMaxScroll();
     return;
   }
 
   productsGrid.innerHTML = list.map((product, index) => {
     const isLiked = wishlist.includes(product.id);
     const fallbackUrl = getFallbackImage(product.name, product.fallbackBg);
-    const staggerDelay = `${Math.min(index * 0.035, 0.28)}s`;
+    const staggerDelay = `${Math.min(index * 0.05, 0.4)}s`;
 
     return `
       <article class="product-card" data-id="${product.id}" style="--stagger: ${staggerDelay}">
@@ -322,8 +322,6 @@ function renderProducts() {
       </article>
     `;
   }).join("");
-
-  updateMaxScroll();
 }
 
 // 2. اختيار المقاس واللون والمفضلة
@@ -353,7 +351,7 @@ function toggleWishlist(productId) {
   renderProducts();
 }
 
-// 3. الفلترة والبحث والترتيب
+// 3. أزرار الفلترة والبحث (للكمبيوتر والهاتف) والترتيب
 filterTabs.addEventListener("click", (e) => {
   if (!e.target.classList.contains("filter-btn")) return;
   onlyWishlist = false;
@@ -495,19 +493,22 @@ function animateFlyToCart(sourceImgEl) {
   const flyImg = document.createElement("img");
   flyImg.src = sourceImgEl.src;
   flyImg.className = "fly-to-cart-img";
-  flyImg.style.top = `${imgRect.top + imgRect.height / 2 - 26}px`;
-  flyImg.style.left = `${imgRect.left + imgRect.width / 2 - 26}px`;
+  flyImg.style.top = `${imgRect.top + imgRect.height / 2 - 28}px`;
+  flyImg.style.left = `${imgRect.left + imgRect.width / 2 - 28}px`;
   document.body.appendChild(flyImg);
 
   requestAnimationFrame(() => {
-    flyImg.style.top = `${cartRect.top + cartRect.height / 2 - 12}px`;
-    flyImg.style.left = `${cartRect.left + cartRect.width / 2 - 12}px`;
-    flyImg.style.width = "22px";
-    flyImg.style.height = "22px";
+    flyImg.style.top = `${cartRect.top + cartRect.height / 2 - 14}px`;
+    flyImg.style.left = `${cartRect.left + cartRect.width / 2 - 14}px`;
+    flyImg.style.width = "24px";
+    flyImg.style.height = "24px";
     flyImg.style.opacity = "0.25";
+    flyImg.style.transform = "scale(0.4) rotate(25deg)";
   });
 
-  setTimeout(() => flyImg.remove(), 680);
+  setTimeout(() => {
+    flyImg.remove();
+  }, 750);
 }
 
 // 6. إدارة سلة المشتريات
@@ -522,7 +523,7 @@ function addToCart(productId, btnElement) {
 
   const originalText = btnElement.textContent;
   btnElement.textContent = "تمت الإضافة ✓";
-  setTimeout(() => { btnElement.textContent = originalText; }, 1000);
+  setTimeout(() => { btnElement.textContent = originalText; }, 1100);
 }
 
 function addItemToCartData(product, size) {
@@ -629,7 +630,7 @@ function showToast(message) {
   toastEl.textContent = message;
   toastEl.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2500);
 }
 
 // 9. إتمام الطلب عبر واتساب
@@ -666,7 +667,7 @@ if (whatsappFloatBtn) {
   whatsappFloatBtn.href = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(quickMsg)}`;
 }
 
-// 11. حركات الظهور الانسيابية + عداد الأرقام + تأثير 3D Tilt للكمبيوتر
+// 11. حركات الظهور الانسيابية + عداد الأرقام + تأثير 3D Tilt + شريط التمرير
 function observeRevealElements() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -675,7 +676,7 @@ function observeRevealElements() {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.12 });
 
   document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 }
@@ -685,7 +686,7 @@ function animateCounters() {
     const target = parseInt(el.dataset.target, 10);
     const prefix = el.dataset.prefix || "";
     const suffix = el.dataset.suffix || "";
-    const duration = 1200;
+    const duration = 1400;
     const startTime = performance.now();
 
     function update(now) {
@@ -704,20 +705,19 @@ function animateCounters() {
   });
 }
 
-const isDesktopPointer = window.matchMedia("(pointer: fine) and (hover: hover)").matches;
-
+// تأثير الإمالة ثلاثية الأبعاد على بطاقة الواجهة الرئيسية
 const heroTiltCard = document.getElementById("hero-tilt-card");
-if (heroTiltCard && isDesktopPointer) {
+if (heroTiltCard && window.matchMedia("(hover: hover)").matches) {
   const glare = heroTiltCard.querySelector(".card-glare");
   heroTiltCard.addEventListener("mousemove", (e) => {
     const rect = heroTiltCard.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateY = ((x / rect.width) - 0.5) * 9;
-    const rotateX = ((y / rect.height) - 0.5) * -9;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
     heroTiltCard.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     if (glare) {
-      glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.25), transparent 65%)`;
+      glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.28), transparent 65%)`;
     }
   });
   heroTiltCard.addEventListener("mouseleave", () => {
@@ -725,6 +725,7 @@ if (heroTiltCard && isDesktopPointer) {
   });
 }
 
+// تأثير تموج الأزرار عند الضغط (Ripple)
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".ripple-btn");
   if (!btn) return;
@@ -740,164 +741,26 @@ document.addEventListener("click", (e) => {
   btn.appendChild(circle);
 });
 
-// ===================================================
-// 12. مراقبة التمرير بدون إجهاد المتصفح (Zero Layout Thrashing)
-// ===================================================
-let maxScroll = 1;
-let isScrolling = false;
-let scrollEndTimer = null;
-let scrollTicking = false;
-
-function updateMaxScroll() {
-  maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-}
-
-window.addEventListener("resize", updateMaxScroll, { passive: true });
-window.addEventListener("load", updateMaxScroll, { passive: true });
-
+// مراقبة التمرير: شريط التقدم + الشريط العلوي + زر العودة للأعلى
 window.addEventListener("scroll", () => {
-  isScrolling = true;
-  clearTimeout(scrollEndTimer);
-  scrollEndTimer = setTimeout(() => {
-    isScrolling = false;
-  }, 120);
+  const scrollTop = window.scrollY;
+  document.getElementById("navbar").classList.toggle("scrolled", scrollTop > 20);
 
-  if (!scrollTicking) {
-    scrollTicking = true;
-    requestAnimationFrame(() => {
-      const scrollTop = window.scrollY;
-      if (navbarEl) navbarEl.classList.toggle("scrolled", scrollTop > 20);
-      if (backToTopBtn) backToTopBtn.classList.toggle("visible", scrollTop > 420);
-      if (scrollProgressEl) {
-        const percent = Math.min(100, Math.max(0, (scrollTop / maxScroll) * 100));
-        scrollProgressEl.style.width = `${percent}%`;
-      }
-      scrollTicking = false;
-    });
+  if (backToTopBtn) {
+    backToTopBtn.classList.toggle("visible", scrollTop > 420);
   }
-}, { passive: true });
+
+  if (scrollProgressEl) {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgressEl.style.width = `${percent}%`;
+  }
+});
 
 if (backToTopBtn) {
   backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-}
-
-// ===================================================
-// 13. تأثيرات الخلفية الخفيفة للكمبيوتر (تتوقف تلقائياً عند السكون)
-// ===================================================
-const mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
-
-function initCursorGlow() {
-  const cursorGlow = document.getElementById("cursor-glow");
-  if (!cursorGlow || !isDesktopPointer) return;
-
-  let currentX = mousePos.x;
-  let currentY = mousePos.y;
-  let animId = null;
-
-  function stepGlow() {
-    const dx = mousePos.x - currentX;
-    const dy = mousePos.y - currentY;
-    if (Math.abs(dx) < 0.4 && Math.abs(dy) < 0.4) {
-      animId = null;
-      return;
-    }
-    currentX += dx * 0.12;
-    currentY += dy * 0.12;
-    cursorGlow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-    animId = requestAnimationFrame(stepGlow);
-  }
-
-  window.addEventListener("pointermove", (e) => {
-    mousePos.x = e.clientX;
-    mousePos.y = e.clientY;
-    if (!mousePos.active) {
-      mousePos.active = true;
-      cursorGlow.classList.add("active");
-    }
-    if (!animId) {
-      animId = requestAnimationFrame(stepGlow);
-    }
-  }, { passive: true });
-
-  document.addEventListener("mouseleave", () => {
-    mousePos.active = false;
-    cursorGlow.classList.remove("active");
-  });
-}
-
-function initBackgroundCanvas() {
-  const canvas = document.getElementById("bg-particles-canvas");
-  if (!canvas || !isDesktopPointer || window.innerWidth < 769) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const ctx = canvas.getContext("2d", { alpha: true });
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-
-  function resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas, { passive: true });
-
-  const particles = Array.from({ length: 22 }, (_, i) => {
-    const isGold = i % 4 === 0;
-    return {
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: isGold ? 2 : 3.2,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: -(Math.random() * 0.25 + 0.1),
-      phase: Math.random() * Math.PI * 2,
-      isGold
-    };
-  });
-
-  function renderParticles() {
-    if (!document.hidden && !isScrolling) {
-      ctx.clearRect(0, 0, width, height);
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.phase += 0.015;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (mousePos.active) {
-          const dx = p.x - mousePos.x;
-          const dy = p.y - mousePos.y;
-          const distSq = dx * dx + dy * dy;
-          if (distSq < 12100 && distSq > 1) {
-            p.x += dx * 0.012;
-            p.y += dy * 0.012;
-          }
-        }
-
-        if (p.y < -15) p.y = height + 15;
-        if (p.y > height + 15) p.y = -15;
-        if (p.x < -15) p.x = width + 15;
-        if (p.x > width + 15) p.x = -15;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.isGold
-          ? (isDark ? "rgba(226, 185, 82, 0.35)" : "rgba(201, 162, 63, 0.3)")
-          : (isDark ? "rgba(116, 169, 216, 0.25)" : "rgba(92, 146, 193, 0.22)");
-        ctx.fill();
-      }
-    }
-    requestAnimationFrame(renderParticles);
-  }
-
-  requestAnimationFrame(renderParticles);
 }
 
 // التشغيل الأولي
@@ -906,5 +769,3 @@ renderProducts();
 saveAndUpdateCart();
 observeRevealElements();
 animateCounters();
-initCursorGlow();
-initBackgroundCanvas();
