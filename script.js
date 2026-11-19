@@ -742,8 +742,14 @@ document.addEventListener("click", (e) => {
 });
 
 // مراقبة التمرير: شريط التقدم + الشريط العلوي + زر العودة للأعلى
+let lastScrollY = window.scrollY;
+let scrollBoost = 0;
+
 window.addEventListener("scroll", () => {
   const scrollTop = window.scrollY;
+  scrollBoost = (scrollTop - lastScrollY) * 0.15;
+  lastScrollY = scrollTop;
+
   document.getElementById("navbar").classList.toggle("scrolled", scrollTop > 20);
 
   if (backToTopBtn) {
@@ -763,9 +769,122 @@ if (backToTopBtn) {
   });
 }
 
+// ===================================================
+// 12. تأثيرات الخلفية التفاعلية (هالة الماوس + جزيئات السحاب)
+// ===================================================
+const mousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
+
+function initCursorGlow() {
+  const cursorGlow = document.getElementById("cursor-glow");
+  if (!cursorGlow || !window.matchMedia("(hover: hover)").matches) return;
+
+  let currentX = mousePos.x;
+  let currentY = mousePos.y;
+
+  window.addEventListener("pointermove", (e) => {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+    if (!mousePos.active) {
+      mousePos.active = true;
+      cursorGlow.classList.add("active");
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    mousePos.active = false;
+    cursorGlow.classList.remove("active");
+  });
+
+  function updateGlow() {
+    currentX += (mousePos.x - currentX) * 0.1;
+    currentY += (mousePos.y - currentY) * 0.1;
+    cursorGlow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+    requestAnimationFrame(updateGlow);
+  }
+  requestAnimationFrame(updateGlow);
+}
+
+function initBackgroundCanvas() {
+  const canvas = document.getElementById("bg-particles-canvas");
+  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const ctx = canvas.getContext("2d");
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const particleCount = width < 768 ? 20 : 38;
+  const particles = Array.from({ length: particleCount }, (_, i) => {
+    const isGold = i % 4 === 0;
+    return {
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: isGold ? Math.random() * 2.2 + 1.2 : Math.random() * 4.5 + 2,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: -(Math.random() * 0.35 + 0.12),
+      phase: Math.random() * Math.PI * 2,
+      isGold
+    };
+  });
+
+  function renderParticles() {
+    ctx.clearRect(0, 0, width, height);
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+
+    for (const p of particles) {
+      p.phase += 0.018;
+      p.x += p.vx + Math.sin(p.phase) * 0.15;
+      p.y += p.vy - scrollBoost * 0.35;
+
+      // تفاعل لطيف عند اقتراب الماوس من الجزيء
+      if (mousePos.active) {
+        const dx = p.x - mousePos.x;
+        const dy = p.y - mousePos.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 130 && dist > 0) {
+          const force = (130 - dist) / 130;
+          p.x += (dx / dist) * force * 1.1;
+          p.y += (dy / dist) * force * 1.1;
+        }
+      }
+
+      if (p.y < -20) p.y = height + 20;
+      if (p.y > height + 20) p.y = -20;
+      if (p.x < -20) p.x = width + 20;
+      if (p.x > width + 20) p.x = -20;
+
+      const alpha = 0.25 + Math.sin(p.phase) * 0.15;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+      if (p.isGold) {
+        ctx.fillStyle = isDark
+          ? `rgba(226, 185, 82, ${alpha + 0.15})`
+          : `rgba(201, 162, 63, ${alpha + 0.1})`;
+      } else {
+        ctx.fillStyle = isDark
+          ? `rgba(116, 169, 216, ${alpha})`
+          : `rgba(92, 146, 193, ${alpha})`;
+      }
+      ctx.fill();
+    }
+
+    scrollBoost *= 0.88;
+    requestAnimationFrame(renderParticles);
+  }
+
+  requestAnimationFrame(renderParticles);
+}
+
 // التشغيل الأولي
 wishlistCountEl.textContent = wishlist.length;
 renderProducts();
 saveAndUpdateCart();
 observeRevealElements();
 animateCounters();
+initCursorGlow();
+initBackgroundCanvas();

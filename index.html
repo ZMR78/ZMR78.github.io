@@ -12,6 +12,28 @@
 </head>
 <body>
 
+  <!-- خلفية الصفحة المتحركة والتفاعلية -->
+  <div class="page-bg-layer" aria-hidden="true">
+    <div class="bg-dot-pattern"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="bg-orb orb-4"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="bg-particles-canvas"></canvas>
+    <div class="bg-floating-clouds">
+      <svg class="bg-cloud-svg c1" viewBox="0 0 200 100">
+        <path d="M45 80h110a30 30 0 0 0 4-59.7A45 45 0 0 0 73 15a35 35 0 0 0-28 65z"/>
+      </svg>
+      <svg class="bg-cloud-svg c2" viewBox="0 0 200 100">
+        <path d="M45 80h110a30 30 0 0 0 4-59.7A45 45 0 0 0 73 15a35 35 0 0 0-28 65z"/>
+      </svg>
+      <svg class="bg-cloud-svg c3" viewBox="0 0 200 100">
+        <path d="M45 80h110a30 30 0 0 0 4-59.7A45 45 0 0 0 73 15a35 35 0 0 0-28 65z"/>
+      </svg>
+    </div>
+  </div>
+
   <!-- شريط الإعلانات العلوي -->
   <div class="announcement-bar">
     شحن مجاني للطلبات فوق <strong>1200 ج.م</strong> • معاينة كاملة للشحنة قبل الاستلام ☁
@@ -68,9 +90,9 @@
 
   <!-- الواجهة الرئيسية (Hero Section) -->
   <section id="home" class="hero">
-    <div class="cloud-shape cloud-1" data-parallax="0.04"></div>
-    <div class="cloud-shape cloud-2" data-parallax="-0.03"></div>
-    <div class="cloud-shape cloud-3" data-parallax="0.05"></div>
+    <div class="cloud-shape cloud-1"></div>
+    <div class="cloud-shape cloud-2"></div>
+    <div class="cloud-shape cloud-3"></div>
     <div class="floating-particles" aria-hidden="true">
       <span>☁</span><span>✦</span><span>☁</span><span>✦</span><span>☁</span>
     </div>
