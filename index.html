@@ -19,8 +19,10 @@
 
   <!-- الشريط العلوي -->
   <header class="navbar" id="navbar">
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <div class="container nav-content">
-      <a href="#" class="logo">
+      <a href="#home" class="logo">
         <img src="logo.png" alt="شعار Ghima_store" class="brand-logo-img" />
         <span dir="ltr">Ghima_store</span>
       </a>
@@ -66,41 +68,46 @@
 
   <!-- الواجهة الرئيسية (Hero Section) -->
   <section id="home" class="hero">
-    <div class="cloud-shape cloud-1"></div>
-    <div class="cloud-shape cloud-2"></div>
+    <div class="cloud-shape cloud-1" data-parallax="0.04"></div>
+    <div class="cloud-shape cloud-2" data-parallax="-0.03"></div>
+    <div class="cloud-shape cloud-3" data-parallax="0.05"></div>
+    <div class="floating-particles" aria-hidden="true">
+      <span>☁</span><span>✦</span><span>☁</span><span>✦</span><span>☁</span>
+    </div>
 
     <div class="container hero-grid">
       <div class="hero-text reveal">
-        <span class="badge">تشكيلة شتاء وخريف 2026</span>
-        <h1>راحة تشبه الغيم..<br><span>وأناقة تدوم كل يوم</span></h1>
+        <span class="badge badge-shimmer">✨ تشكيلة شتاء وخريف 2026 الجديدة</span>
+        <h1>راحة تشبه الغيم..<br><span class="gradient-text">وأناقة تدوم كل يوم</span></h1>
         <p>
           تصميمات عصرية بخامات قطنية مصرية فاخرة من <strong dir="ltr">Ghima_store</strong> تمنحك خفة ونعومة استثنائية في كل حركة.
         </p>
         <div class="hero-buttons">
-          <a href="#products" class="btn btn-primary">تسوق التشكيلة الآن</a>
-          <button type="button" id="open-size-guide" class="btn btn-outline">دليل المقاسات</button>
+          <a href="#products" class="btn btn-primary ripple-btn">تسوق التشكيلة الآن</a>
+          <button type="button" id="open-size-guide" class="btn btn-outline ripple-btn">دليل المقاسات</button>
         </div>
 
         <div class="hero-stats">
           <div>
-            <strong>+5,000</strong>
+            <strong class="stat-counter" data-target="5000" data-prefix="+">+5,000</strong>
             <span>عميل سعيد</span>
           </div>
           <div class="divider"></div>
           <div>
-            <strong>100%</strong>
+            <strong class="stat-counter" data-target="100" data-suffix="%">100%</strong>
             <span>قطن مصري معالج</span>
           </div>
           <div class="divider"></div>
           <div>
-            <strong>48 ساعة</strong>
+            <strong class="stat-counter" data-target="48" data-suffix=" ساعة">48 ساعة</strong>
             <span>توصيل للقاهرة والجيزة</span>
           </div>
         </div>
       </div>
 
       <div class="hero-visual reveal">
-        <div class="hero-image-card">
+        <div class="hero-image-card tilt-card" id="hero-tilt-card">
+          <div class="card-glare"></div>
           <img
             src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80"
             alt="تشكيلة Ghima_store"
@@ -110,7 +117,7 @@
             <span class="dot"></span>
             <div>
               <strong>هودي الغيم السحابي</strong>
-              <small>الأكثر طلباً هذا الأسبوع</small>
+              <small>الأكثر طلباً هذا الأسبوع • 12 قطعة متاحة</small>
             </div>
           </div>
         </div>
@@ -118,27 +125,54 @@
     </div>
   </section>
 
+  <!-- شريط المميزات المتحرك (Marquee) -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>☁ قطن مصري 100% عالي الجودة</span>
+      <span>✦ معاينة كاملة قبل الدفع</span>
+      <span>🚚 شحن مجاني للطلبات فوق 1200 ج.م</span>
+      <span>🔄 استبدال واسترجاع سهل خلال 14 يوماً</span>
+      <span>✨ تصميمات حصرية من Ghima_store</span>
+      <span>☁ قطن مصري 100% عالي الجودة</span>
+      <span>✦ معاينة كاملة قبل الدفع</span>
+      <span>🚚 شحن مجاني للطلبات فوق 1200 ج.م</span>
+      <span>🔄 استبدال واسترجاع سهل خلال 14 يوماً</span>
+      <span>✨ تصميمات حصرية من Ghima_store</span>
+    </div>
+  </div>
+
   <!-- الأقسام السريعة -->
   <section id="categories" class="section container">
     <div class="categories-grid">
-      <div class="category-card reveal" data-cat="hoodies">
+      <div class="category-card reveal" data-cat="hoodies" style="--delay: 0.05s">
         <img src="https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?auto=format&fit=crop&w=600&q=80" alt="هوديز" />
         <div class="category-overlay">
+          <span class="cat-count">3 موديلات</span>
           <h3>هوديز وسويت شيرت</h3>
           <span>تصفح القسم ←</span>
         </div>
       </div>
-      <div class="category-card reveal" data-cat="tshirts">
+      <div class="category-card reveal" data-cat="tshirts" style="--delay: 0.12s">
         <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="تيشيرتات" />
         <div class="category-overlay">
+          <span class="cat-count">3 موديلات</span>
           <h3>تيشيرتات أوفر سايز</h3>
           <span>تصفح القسم ←</span>
         </div>
       </div>
-      <div class="category-card reveal" data-cat="pants">
+      <div class="category-card reveal" data-cat="pants" style="--delay: 0.19s">
         <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=600&q=80" alt="بناطيل" />
         <div class="category-overlay">
-          <h3>بناطيل مريحة</h3>
+          <span class="cat-count">3 موديلات</span>
+          <h3>بناطيل وكارجو</h3>
+          <span>تصفح القسم ←</span>
+        </div>
+      </div>
+      <div class="category-card reveal" data-cat="jackets" style="--delay: 0.26s">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=600&q=80" alt="جواكت" />
+        <div class="category-overlay">
+          <span class="cat-count">جديد 2026</span>
+          <h3>جواكت وكارديجان</h3>
           <span>تصفح القسم ←</span>
         </div>
       </div>
@@ -150,15 +184,16 @@
     <div class="section-header reveal">
       <div>
         <h2 class="section-title">تشكيلة <span dir="ltr">Ghima_store</span></h2>
-        <p class="section-subtitle">اختر مقاسك ولونك المفضل بكل سهولة</p>
+        <p class="section-subtitle">اختر مقاسك ولونك المفضل من بين <strong id="visible-count">12</strong> قطعة متوفرة</p>
       </div>
 
       <div class="controls-bar">
         <div class="filter-tabs" id="filter-tabs">
-          <button class="filter-btn active" data-filter="all">الكل</button>
+          <button class="filter-btn active" data-filter="all">الكل (12)</button>
           <button class="filter-btn" data-filter="hoodies">هوديز وسويت شيرت</button>
           <button class="filter-btn" data-filter="tshirts">تيشيرتات</button>
-          <button class="filter-btn" data-filter="pants">بناطيل</button>
+          <button class="filter-btn" data-filter="pants">بناطيل وكارجو</button>
+          <button class="filter-btn" data-filter="jackets">جواكت وكارديجان</button>
         </div>
 
         <select id="sort-select" class="sort-select" aria-label="ترتيب حسب">
@@ -175,17 +210,17 @@
   <!-- مميزات المتجر -->
   <section id="features" class="features-bar">
     <div class="container features-grid">
-      <div class="feature-item reveal">
+      <div class="feature-item reveal" style="--delay: 0.05s">
         <div class="feature-icon">📦</div>
         <h4>معاينة قبل الاستلام</h4>
         <p>افتح شحنتك وتأكد من المقاس والخامة قبل دفع أي مبلغ</p>
       </div>
-      <div class="feature-item reveal">
+      <div class="feature-item reveal" style="--delay: 0.15s">
         <div class="feature-icon">🚚</div>
         <h4>شحن مجاني فوق 1200 ج.م</h4>
         <p>توصيل سريع وآمن لجميع محافظات مصر خلال 2 إلى 4 أيام</p>
       </div>
-      <div class="feature-item reveal">
+      <div class="feature-item reveal" style="--delay: 0.25s">
         <div class="feature-icon">🔄</div>
         <h4>استبدال خلال 14 يوماً</h4>
         <p>تغيير المقاس أو الموديل بسهولة تامة عبر مندوبنا</p>
@@ -197,7 +232,7 @@
   <footer class="footer">
     <div class="container footer-content">
       <div>
-        <a href="#" class="logo footer-logo">
+        <a href="#home" class="logo footer-logo">
           <img src="logo.png" alt="شعار Ghima_store" class="brand-logo-img footer-logo-img" />
           <span dir="ltr">Ghima_store</span>
         </a>
@@ -258,7 +293,7 @@
         <input type="text" id="cust-name" placeholder="الاسم بالكامل" required />
         <input type="tel" id="cust-phone" placeholder="رقم الموبايل (واتساب)" required />
         <input type="text" id="cust-city" placeholder="المحافظة والمنطقة بالتفصيل" required />
-        <button type="submit" class="btn btn-primary full-width">
+        <button type="submit" class="btn btn-primary full-width ripple-btn">
           إتمام الطلب عبر واتساب
         </button>
       </form>
@@ -267,6 +302,11 @@
 
   <!-- إشعار منبثق -->
   <div id="toast" class="toast">تمت إضافة القطعة إلى السلة ✓</div>
+
+  <!-- زر العودة للأعلى -->
+  <button type="button" id="back-to-top" class="back-to-top" aria-label="العودة للأعلى" title="العودة للأعلى">
+    ↑
+  </button>
 
   <!-- زر الواتساب العائم للاستفسارات السريعة -->
   <a id="whatsapp-float" href="#" target="_blank" rel="noopener" class="whatsapp-float" aria-label="تواصل معنا عبر واتساب">

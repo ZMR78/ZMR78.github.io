@@ -16,7 +16,7 @@ function getFallbackImage(title, bg = "#DCE8F2") {
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 
-// بيانات منتجات Ghima_store
+// بيانات منتجات Ghima_store (12 قطعة متنوعة)
 const products = [
   {
     id: 1,
@@ -59,19 +59,32 @@ const products = [
   },
   {
     id: 4,
+    name: "جاكيت بامبر سحابي مبطن - كحلي ليلي",
+    category: "jackets",
+    fabric: "خامة مقاومة للهواء ببطانة قطنية ناعمة",
+    price: 890,
+    oldPrice: 1050,
+    tag: "جديد 2026",
+    tagType: "gold",
+    colors: ["#1D2D44", "#1E1E1E", "#6B705C"],
+    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#D8E2EC"
+  },
+  {
+    id: 5,
     name: "سويت شيرت كلاسيك - أسود فحمي",
     category: "hoodies",
     fabric: "مبطن من الداخل بنعومة فائقة",
     price: 590,
     oldPrice: null,
-    tag: "",
+    tag: "الأكثر طلباً",
     tagType: "",
     colors: ["#1E1E1E", "#5C92C1"],
     image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=700&q=80",
     fallbackBg: "#D4D6D9"
   },
   {
-    id: 5,
+    id: 6,
     name: "تيشيرت أوفر سايز - رمادي فاتح",
     category: "tshirts",
     fabric: "قطن يسمح بالتهوية بقصة مريحة",
@@ -84,17 +97,82 @@ const products = [
     fallbackBg: "#E4E8EC"
   },
   {
-    id: 6,
+    id: 7,
+    name: "بنطلون كارجو قطن عملي - زيتي غامق",
+    category: "pants",
+    fabric: "قطن تويل متين بجيوب جانبية عصرية",
+    price: 640,
+    oldPrice: 750,
+    tag: "جديد",
+    tagType: "",
+    colors: ["#4A5D4E", "#1E1E1E", "#C2B280"],
+    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#DCE3DC"
+  },
+  {
+    id: 8,
+    name: "كارديجان صوف ناعم - جملي دافئ",
+    category: "jackets",
+    fabric: "نسيج قطني محبوك خفيف ومريح",
+    price: 760,
+    oldPrice: null,
+    tag: "إصدار محدود",
+    tagType: "gold",
+    colors: ["#C19A6B", "#EAE0D5", "#2B2D42"],
+    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#EFE6DA"
+  },
+  {
+    id: 9,
+    name: "هودي سحاب (Zip-Up) - أوف وايت كريمي",
+    category: "hoodies",
+    fabric: "قطن ميلتون فاخر بسحاب معدني متين",
+    price: 710,
+    oldPrice: 820,
+    tag: "خصم 15%",
+    tagType: "sale",
+    colors: ["#F4EFE6", "#7FAAC9", "#222222"],
+    image: "https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#F2EDE4"
+  },
+  {
+    id: 10,
+    name: "تيشيرت بولو قطن بيكيه - أزرق سماوي",
+    category: "tshirts",
+    fabric: "قطن بيكيه مصري بارد وأنيق للخروجات",
+    price: 450,
+    oldPrice: null,
+    tag: "جديد",
+    tagType: "",
+    colors: ["#89CFF0", "#FFFFFF", "#1B263B"],
+    image: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#DCEEF8"
+  },
+  {
+    id: 11,
     name: "بنطلون سويت بانتس - رمادي دخاني",
     category: "pants",
     fabric: "قطن ميلتون دافئ للخريف والشتاء",
     price: 490,
     oldPrice: null,
-    tag: "جديد",
+    tag: "",
     tagType: "",
     colors: ["#6E737B", "#1E1E1E"],
-    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80",
+    image: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=700&q=80",
     fallbackBg: "#DFE3E8"
+  },
+  {
+    id: 12,
+    name: "جاكيت دنيم أوفر سايز - أزرق ثلجي",
+    category: "jackets",
+    fabric: "جينز قطني 100% مغسول بنعومة فائقة",
+    price: 950,
+    oldPrice: 1120,
+    tag: "قطعة مميزة",
+    tagType: "gold",
+    colors: ["#7393B3", "#2F3E46"],
+    image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=700&q=80",
+    fallbackBg: "#DCE6F0"
   }
 ];
 
@@ -104,12 +182,14 @@ let currentFilter = "all";
 let currentSort = "default";
 let searchQuery = "";
 let onlyWishlist = false;
+let qvSelectedSize = "M";
 
 // رقم الواتساب الخاص بـ Ghima_store
 const STORE_WHATSAPP = "201024811183";
 const FREE_SHIPPING_THRESHOLD = 1200;
 
 const productsGrid = document.getElementById("products-grid");
+const visibleCountEl = document.getElementById("visible-count");
 const filterTabs = document.getElementById("filter-tabs");
 const sortSelect = document.getElementById("sort-select");
 const searchInput = document.getElementById("search-input");
@@ -133,6 +213,8 @@ const modalOverlay = document.getElementById("modal-overlay");
 const modalBody = document.getElementById("modal-body");
 const closeModalBtn = document.getElementById("close-modal");
 const toastEl = document.getElementById("toast");
+const scrollProgressEl = document.getElementById("scroll-progress");
+const backToTopBtn = document.getElementById("back-to-top");
 
 // 0. إدارة الوضع الليلي (Dark Mode)
 function applyTheme(theme) {
@@ -156,7 +238,7 @@ if (themeToggleBtn) {
   });
 }
 
-// 1. عرض المنتجات حسب الفلترة والترتيب والبحث
+// 1. عرض المنتجات حسب الفلترة والترتيب والبحث مع حركة ظهور متتابعة
 function renderProducts() {
   let list = [...products];
 
@@ -176,17 +258,22 @@ function renderProducts() {
   if (currentSort === "low") list.sort((a, b) => a.price - b.price);
   if (currentSort === "high") list.sort((a, b) => b.price - a.price);
 
+  if (visibleCountEl) {
+    visibleCountEl.textContent = list.length;
+  }
+
   if (list.length === 0) {
     productsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">لا توجد قطع مطابقة لبحثك حالياً.</p>`;
     return;
   }
 
-  productsGrid.innerHTML = list.map(product => {
+  productsGrid.innerHTML = list.map((product, index) => {
     const isLiked = wishlist.includes(product.id);
     const fallbackUrl = getFallbackImage(product.name, product.fallbackBg);
+    const staggerDelay = `${Math.min(index * 0.05, 0.4)}s`;
 
     return `
-      <article class="product-card reveal" data-id="${product.id}">
+      <article class="product-card" data-id="${product.id}" style="--stagger: ${staggerDelay}">
         <div class="product-img-wrap">
           ${product.tag ? `<span class="tag ${product.tagType}">${product.tag}</span>` : ""}
           <button type="button" class="wish-btn ${isLiked ? "liked" : ""}" onclick="toggleWishlist(${product.id})" title="أضف للمفضلة">
@@ -235,8 +322,6 @@ function renderProducts() {
       </article>
     `;
   }).join("");
-
-  observeRevealElements();
 }
 
 // 2. اختيار المقاس واللون والمفضلة
@@ -318,9 +403,16 @@ wishlistFilterBtn.addEventListener("click", () => {
 });
 
 // 4. نافذة المعاينة السريعة ودليل المقاسات
+function selectQuickViewSize(size, btnEl) {
+  qvSelectedSize = size;
+  btnEl.parentElement.querySelectorAll(".size-btn").forEach(b => b.classList.remove("selected"));
+  btnEl.classList.add("selected");
+}
+
 function openQuickView(productId) {
   const product = products.find(p => p.id === productId);
   const fallbackUrl = getFallbackImage(product.name, product.fallbackBg);
+  qvSelectedSize = "M";
 
   modalBody.innerHTML = `
     <div class="qv-grid">
@@ -329,13 +421,27 @@ function openQuickView(productId) {
         <span class="badge">تشكيلة Ghima_store 2026</span>
         <h2 style="margin-bottom:8px;">${product.name}</h2>
         <p style="color:var(--text-muted);margin-bottom:14px;">${product.fabric}</p>
-        <div style="font-size:1.4rem;font-weight:800;margin-bottom:16px;">${product.price} ج.م</div>
-        <p style="font-size:0.88rem;margin-bottom:16px;">
+        <div style="font-size:1.4rem;font-weight:800;margin-bottom:14px;">
+          ${product.price} ج.م
+          ${product.oldPrice ? `<span class="old-price" style="font-size:1rem;margin-right:8px;">${product.oldPrice} ج.م</span>` : ""}
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.85rem;font-weight:700;margin-bottom:8px;">اختر المقاس:</div>
+          <div class="size-selector">
+            <button type="button" class="size-btn" onclick="selectQuickViewSize('S', this)">S</button>
+            <button type="button" class="size-btn selected" onclick="selectQuickViewSize('M', this)">M</button>
+            <button type="button" class="size-btn" onclick="selectQuickViewSize('L', this)">L</button>
+            <button type="button" class="size-btn" onclick="selectQuickViewSize('XL', this)">XL</button>
+          </div>
+        </div>
+
+        <p style="font-size:0.88rem;margin-bottom:18px;color:var(--text-muted);">
           ✓ معاينة كاملة للمنتج قبل الدفع<br>
           ✓ قطن مصري ناعم لا ينكمش مع الغسيل
         </p>
         <button type="button" class="btn btn-primary full-width" onclick="quickAdd(${product.id})">
-          أضف للسلة (مقاس M)
+          أضف للسلة الآن
         </button>
       </div>
     </div>
@@ -345,7 +451,7 @@ function openQuickView(productId) {
 
 function quickAdd(productId) {
   const product = products.find(p => p.id === productId);
-  addItemToCartData(product, "M");
+  addItemToCartData(product, qvSelectedSize);
   modalOverlay.classList.remove("open");
 }
 
@@ -378,12 +484,41 @@ modalOverlay.addEventListener("click", (e) => {
   if (e.target === modalOverlay) modalOverlay.classList.remove("open");
 });
 
-// 5. إدارة سلة المشتريات
+// 5. تأثير طيران صورة المنتج نحو السلة
+function animateFlyToCart(sourceImgEl) {
+  if (!sourceImgEl || !cartBtn) return;
+  const imgRect = sourceImgEl.getBoundingClientRect();
+  const cartRect = cartBtn.getBoundingClientRect();
+
+  const flyImg = document.createElement("img");
+  flyImg.src = sourceImgEl.src;
+  flyImg.className = "fly-to-cart-img";
+  flyImg.style.top = `${imgRect.top + imgRect.height / 2 - 28}px`;
+  flyImg.style.left = `${imgRect.left + imgRect.width / 2 - 28}px`;
+  document.body.appendChild(flyImg);
+
+  requestAnimationFrame(() => {
+    flyImg.style.top = `${cartRect.top + cartRect.height / 2 - 14}px`;
+    flyImg.style.left = `${cartRect.left + cartRect.width / 2 - 14}px`;
+    flyImg.style.width = "24px";
+    flyImg.style.height = "24px";
+    flyImg.style.opacity = "0.25";
+    flyImg.style.transform = "scale(0.4) rotate(25deg)";
+  });
+
+  setTimeout(() => {
+    flyImg.remove();
+  }, 750);
+}
+
+// 6. إدارة سلة المشتريات
 function addToCart(productId, btnElement) {
   const card = btnElement.closest(".product-card");
   const selectedSize = card.querySelector(".size-btn.selected").dataset.size;
+  const productImg = card.querySelector(".product-img-wrap img");
   const product = products.find(p => p.id === productId);
 
+  animateFlyToCart(productImg);
   addItemToCartData(product, selectedSize);
 
   const originalText = btnElement.textContent;
@@ -479,7 +614,7 @@ function saveAndUpdateCart() {
   }
 }
 
-// 6. فتح وإغلاق السلة
+// 7. فتح وإغلاق السلة
 function toggleCart(open) {
   cartDrawer.classList.toggle("open", open);
   cartOverlay.classList.toggle("open", open);
@@ -489,7 +624,7 @@ cartBtn.addEventListener("click", () => toggleCart(true));
 closeCartBtn.addEventListener("click", () => toggleCart(false));
 cartOverlay.addEventListener("click", () => toggleCart(false));
 
-// 7. إشعار منبثق
+// 8. إشعار منبثق
 let toastTimer;
 function showToast(message) {
   toastEl.textContent = message;
@@ -498,7 +633,7 @@ function showToast(message) {
   toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2500);
 }
 
-// 8. إتمام الطلب عبر واتساب
+// 9. إتمام الطلب عبر واتساب
 checkoutForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (cart.length === 0) {
@@ -525,14 +660,14 @@ checkoutForm.addEventListener("submit", (e) => {
   window.open(`https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank");
 });
 
-// 9. ربط زر الواتساب العائم برقم المتجر
+// 10. ربط زر الواتساب العائم برقم المتجر
 const whatsappFloatBtn = document.getElementById("whatsapp-float");
 if (whatsappFloatBtn) {
   const quickMsg = "مرحباً متجر Ghima_store ☁، لدي استفسار بخصوص التشكيلة المتاحة.";
   whatsappFloatBtn.href = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(quickMsg)}`;
 }
 
-// 10. حركات الظهور الانسيابية عند التمرير
+// 11. حركات الظهور الانسيابية + عداد الأرقام + تأثير 3D Tilt + شريط التمرير
 function observeRevealElements() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -546,12 +681,91 @@ function observeRevealElements() {
   document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 }
 
-window.addEventListener("scroll", () => {
-  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 20);
+function animateCounters() {
+  document.querySelectorAll(".stat-counter").forEach(el => {
+    const target = parseInt(el.dataset.target, 10);
+    const prefix = el.dataset.prefix || "";
+    const suffix = el.dataset.suffix || "";
+    const duration = 1400;
+    const startTime = performance.now();
+
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(easeOut * target);
+      el.textContent = `${prefix}${current.toLocaleString("en-US")}${suffix}`;
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = `${prefix}${target.toLocaleString("en-US")}${suffix}`;
+      }
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// تأثير الإمالة ثلاثية الأبعاد على بطاقة الواجهة الرئيسية
+const heroTiltCard = document.getElementById("hero-tilt-card");
+if (heroTiltCard && window.matchMedia("(hover: hover)").matches) {
+  const glare = heroTiltCard.querySelector(".card-glare");
+  heroTiltCard.addEventListener("mousemove", (e) => {
+    const rect = heroTiltCard.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    heroTiltCard.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    if (glare) {
+      glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.28), transparent 65%)`;
+    }
+  });
+  heroTiltCard.addEventListener("mouseleave", () => {
+    heroTiltCard.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+  });
+}
+
+// تأثير تموج الأزرار عند الضغط (Ripple)
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".ripple-btn");
+  if (!btn) return;
+  const circle = document.createElement("span");
+  const diameter = Math.max(btn.clientWidth, btn.clientHeight);
+  const rect = btn.getBoundingClientRect();
+  circle.style.width = circle.style.height = `${diameter}px`;
+  circle.style.left = `${e.clientX - rect.left - diameter / 2}px`;
+  circle.style.top = `${e.clientY - rect.top - diameter / 2}px`;
+  circle.classList.add("ripple-wave");
+  const oldRipple = btn.querySelector(".ripple-wave");
+  if (oldRipple) oldRipple.remove();
+  btn.appendChild(circle);
 });
+
+// مراقبة التمرير: شريط التقدم + الشريط العلوي + زر العودة للأعلى
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY;
+  document.getElementById("navbar").classList.toggle("scrolled", scrollTop > 20);
+
+  if (backToTopBtn) {
+    backToTopBtn.classList.toggle("visible", scrollTop > 420);
+  }
+
+  if (scrollProgressEl) {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgressEl.style.width = `${percent}%`;
+  }
+});
+
+if (backToTopBtn) {
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 // التشغيل الأولي
 wishlistCountEl.textContent = wishlist.length;
 renderProducts();
 saveAndUpdateCart();
 observeRevealElements();
+animateCounters();
